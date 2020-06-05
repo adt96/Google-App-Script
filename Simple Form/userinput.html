@@ -1,0 +1,163 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+\
+<html>\
+  <head>\
+    <base target="_top">\
+    <style>\
+    body \{\
+  background-image: url('https://images.sr.roku.com/https%3A%2F%2Fscreen-builder-assets.web.roku.com%2F055f54e9-ba37-4e71-85e3-f86677391c45.png');*/\
+ \
+  background-repeat: no-repeat;\
+  background-attachment: fixed;\
+  background-size: cover;\
+\}\
+form \{\
+    position: relative;\
+    width: 60%;\
+    text-align: center;\
+    height:30%;\
+\}\
+\
+        #white \{\
+          background: rgb(255, 255, 255,0.5); \
+          \
+       \
+          align-items: center;\
+        \}\
+        #jumbo\{\
+  padding-top: 5px; \
+  padding-bottom: 5px; \
+\}\
+\
+\
+  </style>\
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">\
+  </head>\
+  <body>\
+    \
+    <p id="msg"></p>\
+    <div class="container">\
+    <div class="jumbotron"id="jumbo">\
+    <form id="white" action="" method="post" target="hiddenFrame">\
+    <div class="form-group">\
+    <h2>Enter your Productivity Data</h2></div>\
+    <div class="form-group">\
+      <label for="Empname">Choose your Name:</label>\
+       <select id="name">\
+       <option value="Select Name">Select Name</option>\
+       \
+                     <option value="ADITYA Shiva">ADITYA Shiva</option>\
+                    \
+                     \
+                     \
+       \
+       \
+       \
+       </select><br><br>\
+          </div>    \
+    <div class="form-group"><label>Enter Test Plan Name :</label><input type="text" id="planname" ><br><br></div>\
+     <div class="form-group"> <label for="StartDate">StartDate:</label><input type="date" id="StartDate" name="StartDate" ><br><br></div>\
+      <div class="form-group"><label for="EndDate">EndDate:</label><input type="date" id="EndDate" name="EndDate"><br><br></div>\
+      <div class="form-group"><label>Enter No of PASS Test Cases:</label><input type="number" id="passtc" value="0" name="passtc" min="0" max="500" ><br><br></div>\
+      <div class="form-group"><label>Enter No of FAIL Test Cases:</label><input type="number" id="failtc" value="0" name="failtc" min="0" max="500" ><br><br></div>\
+      <div class="form-group"><label>Enter No of REVIEW Test Cases:</label><input type="number" id="reviewtc" value="0" name="reviewtc" min="0" max="500"><br><br></div>\
+      <!-- <button onclick="doStuff()">Submit</button> -->\
+     <div class="form-group"> <button id="btn" type="submit">Submit</button><br></div>\
+   <!--  <?var url = getScriptUrl();?><a href='<?=url?>?page=EditUsers'> <input type='button' name='button' value='View User'></a>-->\
+      <div class="position-relative"><a class="btn btn-primary mb-4" href="https://docs.google.com/spreadsheets/d/1-CW4q2Qr2pvXUX1KLs9ZhYdolbd4uIk61Cw9jZJI_nM/edit#gid=0" role="button" target="_blank">View Your Entry</a></div>\
+      </form>\
+      \
+    \
+\
+      </div>\
+      </div>\
+\
+    \
+      <script>\
+     document.getElementById("btn").addEventListener("click", doStuff);\
+     \
+     \
+      function doStuff()\{\
+        var plname = document.getElementById("planname").value;\
+        var empname = document.getElementById("name").value;\
+        var stdate = document.getElementById("StartDate").value;\
+        var endate = document.getElementById("EndDate").value;\
+        var patc = document.getElementById("passtc").value;\
+        var fatc = document.getElementById("failtc").value;\
+        var retc = document.getElementById("reviewtc").value;\
+        console.log(empname);\
+        var flag=0;\
+        var validate=formValidation(plname,empname,stdate,endate,patc,fatc,retc,flag)\
+        var r=submitForm();\
+        if(patc=='')\
+        \{patc=0;\}\
+        if(fatc=='')\{fatc=0;\}\
+        if(retc=='')\{retc=0;\}\
+      \
+        \
+        if(r==true && validate==0)\
+       \{\
+         google.script.run\
+         .withSuccessHandler(function(response)\{\
+         console.log(response);\
+         \})\
+         .withFailureHandler(function(err)\{\
+         console.log(err);\
+         \})\
+         .userClicked(empname,plname,stdate, endate, patc, fatc, retc);\
+              \
+         //Clear the value after User entered the data     \
+         document.getElementById("planname").value="";\
+         alert("Entry Successful");\
+        \}\
+        else\
+        \{\
+        alert("PLEASE ENTER ALL THE VALUES");\
+        \}\
+        \
+         // Add block of code for user confirmation before Submitting the Code \
+         \
+         \}\
+      \
+      \
+     function submitForm() \{\
+            return confirm('Do you really want to submit the form?');\
+           \} \
+        \
+     document.getElementById("view").addEventListener("click", view); \
+     function view()\
+     \{\
+    google.script.run\
+    .withSuccessHandler(function(response)\{\
+         console.log(response);\
+         \})\
+     .withFailureHandler(function(err)\{\
+         console.log(err);\
+         \})\
+    .edit()\
+     \}\
+     \
+     function formValidation(plname,empname,stdate,endate,patc,fatc,retc,flag)\
+     \{\
+     if(plname==''||stdate==''||endate==''||empname==''||empname=="Select Name")\{\
+     console.log("ALL VALUES NOT ENTERED! ");\
+     flag=1;\
+     \}\
+     return flag;\
+     \}\
+            \
+    </script>\
+    <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>\
+  </body>\
+</html>\
+\
+\
+\
+}
